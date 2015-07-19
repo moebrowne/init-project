@@ -45,3 +45,6 @@ if [ -d $projectDir ]; then
 	echo "The directory $projectDir already exists"
 	exit 1
 fi
+
+# Create the project directory
+mkdir -p "$projectDir"
