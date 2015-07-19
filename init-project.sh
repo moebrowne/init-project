@@ -53,3 +53,7 @@ if [ ! $licence = "" ]; then
 	# Copy the licence to the project
 	cp "$LICENCE_DIR/$licence" "$projectDir/LICENCE"
 fi
+
+if [ $git = true ]; then
+	GIT_DIR="$projectDir" git init
+fi
