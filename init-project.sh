@@ -48,3 +48,8 @@ fi
 
 # Create the project directory
 mkdir -p "$projectDir"
+
+if [ ! $licence = "" ]; then
+	# Copy the licence to the project
+	cp "$LICENCE_DIR/$licence" "$projectDir/LICENCE"
+fi
