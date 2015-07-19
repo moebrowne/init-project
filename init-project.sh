@@ -40,3 +40,8 @@ if [ "${BASH_REMATCH[1]}" != "" ]; then
 else
 	projectDir="$projectName"
 fi
+
+if [ -d $projectDir ]; then
+	echo "The directory $projectDir already exists"
+	exit 1
+fi
