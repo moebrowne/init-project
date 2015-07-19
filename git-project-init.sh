@@ -24,3 +24,11 @@ if [ ! $licence = "" ] && [ ! -f "$LICENCE_DIR/$licence" ]; then
 	echo "Couldn't find the specified licence"
 	exit 1
 fi
+
+regexArgGit=' -(-no-git) '
+[[ $args =~ $regexArgGit ]]
+if [ "${BASH_REMATCH[1]}" != "" ]; then
+	git=false
+else
+	git=true
+fi
