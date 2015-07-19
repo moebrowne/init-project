@@ -55,5 +55,6 @@ if [ ! $licence = "" ]; then
 fi
 
 if [ $git = true ]; then
+	# Initalise Git in the project directory
 	GIT_DIR="$projectDir" git init
 fi
