@@ -32,3 +32,11 @@ if [ "${BASH_REMATCH[1]}" != "" ]; then
 else
 	git=true
 fi
+
+regexArgDir=' --dir ([^ ]+) '
+[[ $args =~ $regexArgDir ]]
+if [ "${BASH_REMATCH[1]}" != "" ]; then
+	projectDir="${BASH_REMATCH[1]}"
+else
+	projectDir="$projectName"
+fi
