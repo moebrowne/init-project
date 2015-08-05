@@ -41,7 +41,7 @@ else
 	projectDir="./"
 fi
 
-if [ -d $projectDir ]; then
+if [ -d $projectDir/$projectName ]; then
 	echo "The directory $projectDir already exists"
 	exit 1
 fi
