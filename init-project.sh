@@ -56,5 +56,5 @@ fi
 
 if [ $git = true ]; then
 	# Initalise Git in the project directory
-	GIT_DIR="$projectDir" git init
+	GIT_DIR="$projectDir/$projectName/.git" git init
 fi
