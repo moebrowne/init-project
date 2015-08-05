@@ -56,6 +56,9 @@ if [ ! $licence = "" ]; then
 	cp "$LICENCE_DIR/$licence" "$projectDir/$projectName/LICENCE"
 fi
 
+# Add the projects README
+touch "$projectDir/$projectName/README.md"
+
 # Initalise a Git repo
 if [ $git = true ]; then
 	# Initalise Git in the project directory
