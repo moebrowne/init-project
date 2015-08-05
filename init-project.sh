@@ -42,7 +42,7 @@ else
 fi
 
 if [ -d $projectDir/$projectName ]; then
-	echo "The directory $projectDir already exists"
+	echo "The directory $projectDir/$projectName already exists"
 	exit 1
 fi
 
