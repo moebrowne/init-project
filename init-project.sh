@@ -65,5 +65,6 @@ if [ $git = true ]; then
 	GIT_DIR="$projectDir/$projectName/.git" git init
 
 	# Make the inital commit
-	GIT_DIR="$projectDir/$projectName/.git" git comit -am "Inital Commit"
+	git --git-dir="$projectDir/$projectName/.git" --work-tree="$projectDir/$projectName" add .
+	git --git-dir="$projectDir/$projectName/.git" --work-tree="$projectDir/$projectName" commit -m "Inital Commit"
 fi
