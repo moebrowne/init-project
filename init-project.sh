@@ -64,6 +64,9 @@ if [ $git = true ]; then
 	# Initalise Git in the project directory
 	git --git-dir="$projectDir/$projectName/.git" init
 
+	# Add the Git ignore file
+	touch "$projectDir/$projectName/.gitignore"
+
 	# Make the inital commit
 	git --git-dir="$projectDir/$projectName/.git" --work-tree="$projectDir/$projectName" add .
 	git --git-dir="$projectDir/$projectName/.git" --work-tree="$projectDir/$projectName" commit -m "Inital Commit"
