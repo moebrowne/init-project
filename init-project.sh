@@ -41,6 +41,7 @@ else
 	projectDir="./"
 fi
 
+# Check if the project already exists
 if [ -d $projectDir/$projectName ]; then
 	echo "The directory $projectDir/$projectName already exists"
 	exit 1
@@ -54,6 +55,7 @@ if [ ! $licence = "" ]; then
 	cp "$LICENCE_DIR/$licence" "$projectDir/$projectName/LICENCE"
 fi
 
+# Initalise a Git repo
 if [ $git = true ]; then
 	# Initalise Git in the project directory
 	GIT_DIR="$projectDir/$projectName/.git" git init
