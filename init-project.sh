@@ -50,6 +50,7 @@ fi
 # Create the project directory
 mkdir -p "$projectDir/$projectName"
 
+# Add the projects licence
 if [ ! $licence = "" ]; then
 	# Copy the licence to the project
 	cp "$LICENCE_DIR/$licence" "$projectDir/$projectName/LICENCE"
