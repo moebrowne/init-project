@@ -38,7 +38,7 @@ regexArgDir=' --dir ([^ ]+) '
 if [ "${BASH_REMATCH[1]}" != "" ]; then
 	projectDir="${BASH_REMATCH[1]}"
 else
-	projectDir="$projectName"
+	projectDir="./"
 fi
 
 if [ -d $projectDir ]; then
@@ -47,7 +47,7 @@ if [ -d $projectDir ]; then
 fi
 
 # Create the project directory
-mkdir -p "$projectDir"
+mkdir -p "$projectDir/$projectName"
 
 if [ ! $licence = "" ]; then
 	# Copy the licence to the project
