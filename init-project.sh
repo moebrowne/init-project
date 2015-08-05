@@ -51,7 +51,7 @@ mkdir -p "$projectDir/$projectName"
 
 if [ ! $licence = "" ]; then
 	# Copy the licence to the project
-	cp "$LICENCE_DIR/$licence" "$projectDir/LICENCE"
+	cp "$LICENCE_DIR/$licence" "$projectDir/$projectName/LICENCE"
 fi
 
 if [ $git = true ]; then
