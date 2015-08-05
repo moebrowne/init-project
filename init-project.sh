@@ -20,7 +20,7 @@ else
 fi
 
 # Check the licence exists
-if [ ! $licence = "" ] && [ ! -f "$LICENCE_DIR/$licence" ]; then
+if [ $licence != "" ] && [ ! -f "$LICENCE_DIR/$licence" ]; then
 	echo "Couldn't find the specified licence"
 	exit 1
 fi
