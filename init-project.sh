@@ -62,7 +62,7 @@ touch "$projectDir/$projectName/README.md"
 # Initalise a Git repo
 if [ $git = true ]; then
 	# Initalise Git in the project directory
-	GIT_DIR="$projectDir/$projectName/.git" git init
+	git --git-dir="$projectDir/$projectName/.git" init
 
 	# Make the inital commit
 	git --git-dir="$projectDir/$projectName/.git" --work-tree="$projectDir/$projectName" add .
