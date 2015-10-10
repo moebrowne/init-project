@@ -41,33 +41,36 @@ else
 	projectDir="./"
 fi
 
+# Build the projects path
+projectPath="$projectDir/$projectName"
+
 # Check if the project already exists
-if [ -d $projectDir/$projectName ]; then
-	echo "The directory $projectDir/$projectName already exists"
+if [ -d $projectPath ]; then
+	echo "The directory $projectPath already exists"
 	exit 1
 fi
 
 # Create the project directory
-mkdir -p "$projectDir/$projectName"
+mkdir -p "$projectPath"
 
 # Add the projects licence
 if [ ! $licence = "" ]; then
 	# Copy the licence to the project
-	cp "$LICENCE_DIR/$licence" "$projectDir/$projectName/LICENCE"
+	cp "$LICENCE_DIR/$licence" "$projectPath/LICENCE"
 fi
 
 # Add the projects README
-touch "$projectDir/$projectName/README.md"
+touch "$projectPath/README.md"
 
 # Initalise a Git repo
 if [ $git = true ]; then
 	# Initalise Git in the project directory
-	git --git-dir="$projectDir/$projectName/.git" init
+	git --git-dir="$projectPath/.git" init
 
 	# Add the Git ignore file
-	touch "$projectDir/$projectName/.gitignore"
+	touch "$projectPath/.gitignore"
 
 	# Make the inital commit
-	git --git-dir="$projectDir/$projectName/.git" --work-tree="$projectDir/$projectName" add .
-	git --git-dir="$projectDir/$projectName/.git" --work-tree="$projectDir/$projectName" commit -m "Inital Commit"
+	git --git-dir="$projectPath/.git" --work-tree="$projectPath" add .
+	git --git-dir="$projectPath/.git" --work-tree="$projectPath" commit -m "Inital Commit"
 fi
