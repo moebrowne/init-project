@@ -72,5 +72,5 @@ if [ $git = true ]; then
 
 	# Make the inital commit
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" add .
-	git --git-dir="$projectPath/.git" --work-tree="$projectPath" commit -m "Inital Commit"
+	git --git-dir="$projectPath/.git" --work-tree="$projectPath" commit -m "Initial Commit"
 fi
