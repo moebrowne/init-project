@@ -62,15 +62,15 @@ fi
 # Add the projects README
 touch "$projectPath/README.md"
 
-# Initalise a Git repo
+# Initialise a Git repo
 if [ $git = true ]; then
-	# Initalise Git in the project directory
+	# Initialise Git in the project directory
 	git --git-dir="$projectPath/.git" init
 
 	# Add the Git ignore file
 	touch "$projectPath/.gitignore"
 
-	# Make the inital commit
+	# Make the initial commit
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" add .
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" commit -m "Initial Commit"
 fi
