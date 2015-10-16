@@ -1,6 +1,10 @@
 #!/bin/bash
 
-LICENCE_DIR="./licences"
+# Get the source directory
+SOURCE_ROOT="${BASH_SOURCE%/*}"
+
+# Set the directory the licences can be found in
+LICENCE_DIR="$SOURCE_ROOT/licences"
 
 if [[ ! $1 = "" ]]; then
 	projectName="$1"
