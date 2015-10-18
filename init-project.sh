@@ -6,6 +6,13 @@ SOURCE_ROOT="${BASH_SOURCE%/*}"
 # Set the directory the licences can be found in
 LICENCE_DIR="$SOURCE_ROOT/licences"
 
+# Build an array of licence names
+LICENCE_ARRAY=("$LICENCE_DIR"/*)
+LICENCE_ARRAY=("${LICENCE_ARRAY[@]##*/}")
+
+# Add a no licence option
+LICENCE_ARRAY=(${LICENCE_ARRAY[@]} 'None')
+
 if [[ ! $1 = "" ]]; then
 	projectName="$1"
 else
@@ -20,7 +27,18 @@ regexArgLicence=' -(-licence|l) ([^ ]+) '
 if [ "${BASH_REMATCH[2]}" != "" ]; then
 	licence="${BASH_REMATCH[2]}"
 else
-	licence=""
+	# Ask the user to enter which licence they want to use
+	echo "Which licence do you want to release your project under?";
+	select licence in ${LICENCE_ARRAY[@]}; do
+		if [[ "$licence" = '' ]]; then
+			echo 'Invalid Option';
+		else
+			if [[ "$licence" = 'None' ]]; then
+				licence=''
+			fi
+			break;
+		fi
+	done
 fi
 
 # Check the licence exists
