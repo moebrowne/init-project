@@ -75,8 +75,11 @@ else
 	projectDir="./"
 fi
 
+# Make a directory name out of the project name
+projectDirName=${projectName// /-}
+
 # Build the projects path
-projectPath="$projectDir/$projectName"
+projectPath="$projectDir/$projectDirName"
 
 # Check if the project already exists
 if [ -d "$projectPath" ]; then
