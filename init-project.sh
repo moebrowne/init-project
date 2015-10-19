@@ -108,3 +108,5 @@ if [ $git = true ]; then
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" add .
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" commit -m "Initial Commit" -q
 fi
+
+echo "$projectName Created!"
