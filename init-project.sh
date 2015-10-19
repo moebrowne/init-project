@@ -112,4 +112,4 @@ if [ $git = true ]; then
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" commit -m "Initial Commit" -q
 fi
 
-echo "$projectName Created!"
+echo "$projectName Created in $projectPath"
