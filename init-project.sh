@@ -3,6 +3,15 @@
 # Get the source directory
 SOURCE_ROOT="${BASH_SOURCE%/*}"
 
+# Set the library root path
+LIBRARY_PATH_ROOT="$SOURCE_ROOT/libs"
+
+# Include all libraries in the libs directory
+for f in "$LIBRARY_PATH_ROOT"/*.sh; do
+	# Include the directory
+	source "$f"
+done
+
 # Set the directory the licences can be found in
 LICENCE_DIR="$SOURCE_ROOT/licences"
 
