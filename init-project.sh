@@ -79,7 +79,7 @@ fi
 projectPath="$projectDir/$projectName"
 
 # Check if the project already exists
-if [ -d $projectPath ]; then
+if [ -d "$projectPath" ]; then
 	echo "The directory $projectPath already exists"
 	exit 1
 fi
