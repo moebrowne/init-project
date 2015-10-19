@@ -3,6 +3,15 @@
 # Get the source directory
 SOURCE_ROOT="${BASH_SOURCE%/*}"
 
+# Set the library root path
+LIBRARY_PATH_ROOT="$SOURCE_ROOT/libs"
+
+# Include all libraries in the libs directory
+for f in "$LIBRARY_PATH_ROOT"/*.sh; do
+	# Include the directory
+	source "$f"
+done
+
 # Set the directory the licences can be found in
 LICENCE_DIR="$SOURCE_ROOT/licences"
 
@@ -13,19 +22,17 @@ LICENCE_ARRAY=("${LICENCE_ARRAY[@]##*/}")
 # Add a no licence option
 LICENCE_ARRAY=(${LICENCE_ARRAY[@]} 'None')
 
-if [[ ! $1 = "" ]]; then
-	projectName="$1"
+# Get the projects name
+if argExists 'name'; then
+	projectName="$(argValue "name")"
 else
 	echo "No project name specified"
 	exit 1
 fi
 
-args=" $@ "
-
-regexArgLicence=' -(-licence|l) ([^ ]+) '
-[[ $args =~ $regexArgLicence ]]
-if [ "${BASH_REMATCH[2]}" != "" ]; then
-	licence="${BASH_REMATCH[2]}"
+# Get the projects licence
+if argExists 'licence'; then
+	licence="$(argValue "licence")"
 else
 	# Ask the user to enter which licence they want to use
 	echo "Which licence do you want to release your project under?";
@@ -47,18 +54,16 @@ if [ "$licence" != "" ] && [ ! -f "$LICENCE_DIR/$licence" ]; then
 	exit 1
 fi
 
-regexArgGit=' -(-no-git) '
-[[ $args =~ $regexArgGit ]]
-if [ "${BASH_REMATCH[1]}" != "" ]; then
+# Determine if this is a Git tracked project
+if argExists 'no-git'; then
 	git=false
 else
 	git=true
 fi
 
-regexArgDir=' --dir ([^ ]+) '
-[[ $args =~ $regexArgDir ]]
-if [ "${BASH_REMATCH[1]}" != "" ]; then
-	projectDir="${BASH_REMATCH[1]}"
+# Get the directory the project should be created in
+if argExists 'dir'; then
+	projectDir="$(argValue "dir")"
 else
 	projectDir="./"
 fi
