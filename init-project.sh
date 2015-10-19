@@ -22,19 +22,16 @@ LICENCE_ARRAY=("${LICENCE_ARRAY[@]##*/}")
 # Add a no licence option
 LICENCE_ARRAY=(${LICENCE_ARRAY[@]} 'None')
 
-if [[ ! $1 = "" ]]; then
-	projectName="$1"
+
+if argExists 'name'; then
+	projectName="$(argValue "name")"
 else
 	echo "No project name specified"
 	exit 1
 fi
 
-args=" $@ "
-
-regexArgLicence=' -(-licence|l) ([^ ]+) '
-[[ $args =~ $regexArgLicence ]]
-if [ "${BASH_REMATCH[2]}" != "" ]; then
-	licence="${BASH_REMATCH[2]}"
+if argExists 'licence'; then
+	licence="$(argValue "licence")"
 else
 	# Ask the user to enter which licence they want to use
 	echo "Which licence do you want to release your project under?";
@@ -56,18 +53,16 @@ if [ "$licence" != "" ] && [ ! -f "$LICENCE_DIR/$licence" ]; then
 	exit 1
 fi
 
-regexArgGit=' -(-no-git) '
-[[ $args =~ $regexArgGit ]]
-if [ "${BASH_REMATCH[1]}" != "" ]; then
+# Determine if this is a Git tracked project
+if argExists 'no-git'; then
 	git=false
 else
 	git=true
 fi
 
-regexArgDir=' --dir ([^ ]+) '
-[[ $args =~ $regexArgDir ]]
-if [ "${BASH_REMATCH[1]}" != "" ]; then
-	projectDir="${BASH_REMATCH[1]}"
+# Get the directory the project should be created in
+if argExists 'dir'; then
+	projectDir="$(argValue "dir")"
 else
 	projectDir="./"
 fi
