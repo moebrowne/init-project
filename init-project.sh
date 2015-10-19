@@ -26,6 +26,13 @@ LICENCE_ARRAY=(${LICENCE_ARRAY[@]} 'None')
 if argExists 'name'; then
 	projectName="$(argValue "name")"
 else
+	# Ask the user to supply the projects name
+	echo -n "Enter Project Name: "
+	read projectName
+fi
+
+# Check a project name was provided
+if [ "$projectName" == '' ]; then
 	echo "No project name specified"
 	exit 1
 fi
