@@ -99,12 +99,12 @@ touch "$projectPath/README.md"
 # Initialise a Git repo
 if [ $git = true ]; then
 	# Initialise Git in the project directory
-	git --git-dir="$projectPath/.git" init
+	git --git-dir="$projectPath/.git" init -q
 
 	# Add the Git ignore file
 	touch "$projectPath/.gitignore"
 
 	# Make the initial commit
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" add .
-	git --git-dir="$projectPath/.git" --work-tree="$projectPath" commit -m "Initial Commit"
+	git --git-dir="$projectPath/.git" --work-tree="$projectPath" commit -m "Initial Commit" -q
 fi
