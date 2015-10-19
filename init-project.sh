@@ -22,7 +22,7 @@ LICENCE_ARRAY=("${LICENCE_ARRAY[@]##*/}")
 # Add a no licence option
 LICENCE_ARRAY=(${LICENCE_ARRAY[@]} 'None')
 
-
+# Get the projects name
 if argExists 'name'; then
 	projectName="$(argValue "name")"
 else
@@ -30,6 +30,7 @@ else
 	exit 1
 fi
 
+# Get the projects licence
 if argExists 'licence'; then
 	licence="$(argValue "licence")"
 else
