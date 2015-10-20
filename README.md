@@ -2,13 +2,13 @@
 
 ## Usage
 
-```
+```bash
 ./init-project.sh [OPTIONS]
 ```
 
 ## Arguments
 
-```
+```bash
 --name "[NAME]"
     The name of your project
     
