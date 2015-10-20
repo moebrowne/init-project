@@ -90,6 +90,13 @@ if [ "$licence" != "" ]; then
 		# Ask for the name
 		[ $QUIET == false ] && read -e -p "Enter The Name You Want To Appear On The Licence: " -i "$licenceName" licenceName
 	fi
+
+	# Check a licence name was provided
+	if [ "$licenceName" == '' ]; then
+		echo "No licence name was specified"
+		exit 1
+	fi
+
 fi
 
 # Get the directory the project should be created in
