@@ -3,7 +3,7 @@
 ## Usage
 
 ```
-./init-project.sh  [OPTIONS]
+./init-project.sh [OPTIONS]
 ```
 
 ## Arguments
@@ -14,6 +14,9 @@
     
 --licence [LICENCE]
     Create licence (MIT, Apache2, GPL2, GPL3)
+    
+--licence-name [NAME]
+    The name you want to appear on the licence, if using Git it will default to your git name
   
 --dir [DIRECTORY]
     Where to create your new project, default: "./"
