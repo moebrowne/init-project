@@ -103,7 +103,7 @@ fi
 mkdir -p "$projectPath"
 
 # Add the projects licence
-if [ ! $licence = "" ]; then
+if [ "$licence" != "" ]; then
 	# Copy the licence to the project
 	cp "$LICENCE_DIR/$licence" "$projectPath/LICENCE"
 fi
