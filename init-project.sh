@@ -135,7 +135,7 @@ if [ "$licence" != "" ]; then
 fi
 
 # Add the projects README
-touch "$projectPath/README.md"
+echo "# $projectName" > "$projectPath/README.md"
 
 # Initialise a Git repo
 if [ $git = true ]; then
