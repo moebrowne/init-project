@@ -62,6 +62,12 @@ else
 	done
 fi
 
+# Check the licence exists
+if [ "$licence" != "" ] && [ ! -f "$LICENCE_DIR/$licence" ]; then
+	echo "Couldn't find the specified licence"
+	exit 1
+fi
+
 # If a licence is being added check for a name to put on the licence
 if [ "$licence" != "" ]; then
 
@@ -72,12 +78,6 @@ if [ "$licence" != "" ]; then
 		# Ask for the name
 		read -e -p "Enter The Name You Want To Appear On The Licence: " licenceName
 	fi
-fi
-
-# Check the licence exists
-if [ "$licence" != "" ] && [ ! -f "$LICENCE_DIR/$licence" ]; then
-	echo "Couldn't find the specified licence"
-	exit 1
 fi
 
 # Get the directory the project should be created in
