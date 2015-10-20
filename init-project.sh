@@ -109,6 +109,10 @@ if [ "$licence" != "" ]; then
 
 	# Replace the name tag in the licence with the name the user supplied
 	sed -i -e "s/\[fullname\]/$licenceName/g" "$projectPath/LICENCE"
+
+	# Replace the year tag in the licence with todays year
+	TODAY_YEAR="$(date +%Y)"
+	sed -i -e "s/\[year\]/$TODAY_YEAR/g" "$projectPath/LICENCE"
 fi
 
 # Add the projects README
