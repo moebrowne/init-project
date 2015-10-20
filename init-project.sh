@@ -34,7 +34,7 @@ if argExists 'name'; then
 	projectName="$(argValue "name")"
 else
 	# Ask the user to supply the projects name
-	read -e -p "Enter Project Name: " projectName
+	[ $QUIET == false ] && read -e -p "Enter Project Name: " projectName
 fi
 
 # Determine if this is a Git tracked project
@@ -88,7 +88,7 @@ if [ "$licence" != "" ]; then
 		fi
 
 		# Ask for the name
-		read -e -p "Enter The Name You Want To Appear On The Licence: " -i "$licenceName" licenceName
+		[ $QUIET == false ] && read -e -p "Enter The Name You Want To Appear On The Licence: " -i "$licenceName" licenceName
 	fi
 fi
 
@@ -143,4 +143,4 @@ if [ $git = true ]; then
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" commit -m "Initial Commit" -q
 fi
 
-echo "$projectName Created in $projectPath"
+[ $QUIET == false ] && echo "$projectName Created in $projectPath"
