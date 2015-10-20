@@ -62,6 +62,18 @@ else
 	done
 fi
 
+# If a licence is being added check for a name to put on the licence
+if [ "$licence" != "" ]; then
+
+	# Check if the name for the licence has been passed as a parameter
+	if argExists 'licence-name'; then
+		licenceName="$(argValue "licence-name")"
+	else
+		# Ask for the name
+		read -e -p "Enter The Name You Want To Appear On The Licence: " licenceName
+	fi
+fi
+
 # Check the licence exists
 if [ "$licence" != "" ] && [ ! -f "$LICENCE_DIR/$licence" ]; then
 	echo "Couldn't find the specified licence"
