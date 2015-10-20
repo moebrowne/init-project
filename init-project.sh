@@ -22,6 +22,13 @@ LICENCE_ARRAY=("${LICENCE_ARRAY[@]##*/}")
 # Add a no licence option
 LICENCE_ARRAY=(${LICENCE_ARRAY[@]} 'None')
 
+# Determine if the script should be in 'no questions asked' mode
+if argExists 'q'; then
+	QUIET=true
+else
+	QUIET=false
+fi
+
 # Get the projects name
 if argExists 'name'; then
 	projectName="$(argValue "name")"
