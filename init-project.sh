@@ -106,6 +106,9 @@ mkdir -p "$projectPath"
 if [ "$licence" != "" ]; then
 	# Copy the licence to the project
 	cp "$LICENCE_DIR/$licence" "$projectPath/LICENCE"
+
+	# Replace the name tag in the licence with the name the user supplied
+	sed -i -e "s/\[fullname\]/$licenceName/g" "$projectPath/LICENCE"
 fi
 
 # Add the projects README
