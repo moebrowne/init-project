@@ -9,6 +9,9 @@
 ## Arguments
 
 ```bash
+-q
+    Quiet, no questions asked no output given, optional
+    
 --name "[NAME]"
     The name of your project
     
