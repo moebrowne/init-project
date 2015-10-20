@@ -40,7 +40,7 @@ done
 [ $ARG_DEBUG == true ] && echo "Expanded argument list: ${argChunks[@]}"
 
 # Initialise some variables
-declare -A args
+declare -A argv
 lastWasArgument=0
 lastArgument=""
 
@@ -55,7 +55,7 @@ for argChunk in "${argChunks[@]}"; do
 		lastArgument="$argument"
 
 		# Add the argument to the arguments array
-		args["${BASH_REMATCH[1]}"]=''
+		argv["${BASH_REMATCH[1]}"]=''
 
 		[ $ARG_DEBUG == true ] && echo "Argument (short): ${BASH_REMATCH[1]}"
 
@@ -69,7 +69,7 @@ for argChunk in "${argChunks[@]}"; do
 		lastArgument="$argument"
 
 		# Add the argument to the arguments array
-		args["${BASH_REMATCH[1]}"]="${BASH_REMATCH[2]}"
+		argv["${BASH_REMATCH[1]}"]="${BASH_REMATCH[2]}"
 
 		[ $ARG_DEBUG == true ] && echo "Argument (long with value): ${BASH_REMATCH[1]}=${BASH_REMATCH[2]}"
 
@@ -84,7 +84,7 @@ for argChunk in "${argChunks[@]}"; do
 		lastArgument="$argument"
 
 		# Add the argument to the arguments array
-		args["${BASH_REMATCH[1]}"]=''
+		argv["${BASH_REMATCH[1]}"]=''
 
 		[ $ARG_DEBUG == true ] && echo "Argument (long): ${BASH_REMATCH[1]}"
 
@@ -95,7 +95,7 @@ for argChunk in "${argChunks[@]}"; do
 	if [ $lastWasArgument == 1 ]; then
 
 		# Add the arguments value to the arguments array
-		args["$lastArgument"]="$argChunk"
+		argv["$lastArgument"]="$argChunk"
 
 		[ $ARG_DEBUG == true ] && echo "Argument Value: $argChunk"
 
@@ -104,13 +104,13 @@ for argChunk in "${argChunks[@]}"; do
 done
 
 [ $ARG_DEBUG == true ] && echo "Argument array:"
-[ $ARG_DEBUG == true ] && for k in "${!args[@]}"
+[ $ARG_DEBUG == true ] && for k in "${!argv[@]}"
 do
-    echo "ARG: $k = ${args[$k]}"
+    echo "ARG: $k = ${argv[$k]}"
 done
 
 argExists() {
-	if [ -z ${args["$1"]+abc} ]; then
+	if [ -z ${argv["$1"]+abc} ]; then
 		return 1
 	else
 		return 0
@@ -119,6 +119,11 @@ argExists() {
 
 argValue() {
 	if argExists "$1"; then
-		echo "${args["$1"]}"
+		echo "${argv["$1"]}"
 	fi
 }
+
+# Add the standard argc variable containing the number of arguments
+argc=${#argv[@]}
+
+[ $ARG_DEBUG == true ] && echo "Argument Count: $argc"
