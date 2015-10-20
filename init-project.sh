@@ -53,7 +53,7 @@ fi
 # Get the projects licence
 if argExists 'licence'; then
 	licence="$(argValue "licence")"
-else
+elif [ $QUIET == false ]; then
 	# Ask the user to enter which licence they want to use
 	echo "Which licence do you want to release your project under?";
 	select licence in ${LICENCE_ARRAY[@]}; do
