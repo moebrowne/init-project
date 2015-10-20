@@ -31,6 +31,13 @@ else
 	read projectName
 fi
 
+# Determine if this is a Git tracked project
+if argExists 'no-git'; then
+	git=false
+else
+	git=true
+fi
+
 # Check a project name was provided
 if [ "$projectName" == '' ]; then
 	echo "No project name specified"
@@ -61,11 +68,16 @@ if [ "$licence" != "" ] && [ ! -f "$LICENCE_DIR/$licence" ]; then
 	exit 1
 fi
 
-# Determine if this is a Git tracked project
-if argExists 'no-git'; then
-	git=false
-else
-	git=true
+# If a licence is being added check for a name to put on the licence
+if [ "$licence" != "" ]; then
+
+	# Check if the name for the licence has been passed as a parameter
+	if argExists 'licence-name'; then
+		licenceName="$(argValue "licence-name")"
+	else
+		# Ask for the name
+		read -e -p "Enter The Name You Want To Appear On The Licence: " licenceName
+	fi
 fi
 
 # Get the directory the project should be created in
@@ -91,9 +103,12 @@ fi
 mkdir -p "$projectPath"
 
 # Add the projects licence
-if [ ! $licence = "" ]; then
+if [ "$licence" != "" ]; then
 	# Copy the licence to the project
 	cp "$LICENCE_DIR/$licence" "$projectPath/LICENCE"
+
+	# Replace the name tag in the licence with the name the user supplied
+	sed -i -e "s/\[fullname\]/$licenceName/g" "$projectPath/LICENCE"
 fi
 
 # Add the projects README
