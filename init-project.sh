@@ -31,6 +31,13 @@ else
 	read projectName
 fi
 
+# Determine if this is a Git tracked project
+if argExists 'no-git'; then
+	git=false
+else
+	git=true
+fi
+
 # Check a project name was provided
 if [ "$projectName" == '' ]; then
 	echo "No project name specified"
@@ -59,13 +66,6 @@ fi
 if [ "$licence" != "" ] && [ ! -f "$LICENCE_DIR/$licence" ]; then
 	echo "Couldn't find the specified licence"
 	exit 1
-fi
-
-# Determine if this is a Git tracked project
-if argExists 'no-git'; then
-	git=false
-else
-	git=true
 fi
 
 # Get the directory the project should be created in
