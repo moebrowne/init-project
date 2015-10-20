@@ -27,8 +27,7 @@ if argExists 'name'; then
 	projectName="$(argValue "name")"
 else
 	# Ask the user to supply the projects name
-	echo -n "Enter Project Name: "
-	read projectName
+	read -e -p "Enter Project Name: " projectName
 fi
 
 # Determine if this is a Git tracked project
