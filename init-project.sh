@@ -75,8 +75,14 @@ if [ "$licence" != "" ]; then
 	if argExists 'licence-name'; then
 		licenceName="$(argValue "licence-name")"
 	else
+
+		# If we will be using Git use the name from there as a default
+		if [ $git == true ]; then
+			licenceName="$(git config user.name)"
+		fi
+
 		# Ask for the name
-		read -e -p "Enter The Name You Want To Appear On The Licence: " licenceName
+		read -e -p "Enter The Name You Want To Appear On The Licence: " -i "$licenceName" licenceName
 	fi
 fi
 
