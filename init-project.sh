@@ -146,6 +146,11 @@ else
 	projectDir="./"
 fi
 
+# Make the projects title
+projectTitle=${projectName//_/ }
+projectTitle=${projectTitle//-/ }
+projectTitle=${projectTitle^}
+
 # Make a directory name out of the project name
 projectDirName=${projectName// /-}
 
@@ -174,8 +179,8 @@ if [ "$licence" != "" ]; then
 	sed -i -e "s/\[year\]/$TODAY_YEAR/g" "$projectPath/LICENCE"
 fi
 
-# Add the projects README
-echo "# $projectName" > "$projectPath/README.md"
+# Add the projects title to the README
+echo "# $projectTitle" > "$projectPath/README.md"
 
 # Initialise a Git repo
 if [ $git = true ]; then
@@ -190,4 +195,4 @@ if [ $git = true ]; then
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" commit -m "Initial Commit" -q
 fi
 
-[ $QUIET == false ] && echo "$projectName Created in $projectPath"
+[ $QUIET == false ] && echo "$projectTitle Created in $projectPath"
