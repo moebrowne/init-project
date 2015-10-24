@@ -153,6 +153,7 @@ projectTitle=${projectTitle^}
 
 # Make a directory name out of the project name
 projectDirName=${projectName// /-}
+projectDirName=${projectDirName//\//-}
 
 # Build the projects path
 projectPath="$projectDir/$projectDirName"
