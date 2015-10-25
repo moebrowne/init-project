@@ -22,6 +22,46 @@ LICENCE_ARRAY=("${LICENCE_ARRAY[@]##*/}")
 # Add a no licence option
 LICENCE_ARRAY=(${LICENCE_ARRAY[@]} 'None')
 
+# Text helpers
+bold=$(tput bold)
+normal=$(tput sgr0)
+
+# Help text
+HELP="${bold}NAME${normal}
+	Init Project: A program to initialise a new git project
+
+${bold}USAGE${normal}
+	usage: init-project.sh [OPTIONS]
+
+${bold}OPTIONS${normal}
+	-q
+		Quiet, no questions asked no output given, optional
+
+	--help
+		Help with available commands
+
+	--name "[NAME]"
+		The name of your project
+
+	--licence [LICENCE]
+		Create licence (MIT, Apache2, GPL2, GPL3), default: no licence
+
+	--licence-name [NAME]
+		The name you want to appear on the licence, if using Git it will default to your git name
+
+	--dir [DIRECTORY]
+		Where to create your new project, default: "./"
+
+	--no-git
+		Do not initialise as git repository, default: false
+"
+
+# Show the help text
+if argExists 'help'; then
+	echo "$HELP"
+	exit 0
+fi
+
 # Determine if the script should be in 'no questions asked' mode
 if argExists 'q'; then
 	QUIET=true
@@ -106,8 +146,14 @@ else
 	projectDir="./"
 fi
 
+# Make the projects title
+projectTitle=${projectName//_/ }
+projectTitle=${projectTitle//-/ }
+projectTitle=${projectTitle^}
+
 # Make a directory name out of the project name
 projectDirName=${projectName// /-}
+projectDirName=${projectDirName//\//-}
 
 # Build the projects path
 projectPath="$projectDir/$projectDirName"
@@ -134,8 +180,8 @@ if [ "$licence" != "" ]; then
 	sed -i -e "s/\[year\]/$TODAY_YEAR/g" "$projectPath/LICENCE"
 fi
 
-# Add the projects README
-echo "# $projectName" > "$projectPath/README.md"
+# Add the projects title to the README
+echo "# $projectTitle" > "$projectPath/README.md"
 
 # Initialise a Git repo
 if [ $git = true ]; then
@@ -148,6 +194,10 @@ if [ $git = true ]; then
 	# Make the initial commit
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" add .
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" commit -m "Initial Commit" -q
+
+	# Create a develop branch
+	git --git-dir="$projectPath/.git" --work-tree="$projectPath" checkout -b develop
+
 fi
 
-[ $QUIET == false ] && echo "$projectName Created in $projectPath"
+[ $QUIET == false ] && echo "$projectTitle Created in $projectPath"

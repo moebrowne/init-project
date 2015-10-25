@@ -11,6 +11,9 @@
 ```bash
 -q
     Quiet, no questions asked no output given, optional
+
+--help
+    Help with available commands
     
 --name "[NAME]"
     The name of your project
