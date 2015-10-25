@@ -194,6 +194,10 @@ if [ $git = true ]; then
 	# Make the initial commit
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" add .
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" commit -m "Initial Commit" -q
+
+	# Create a develop branch
+	git --git-dir="$projectPath/.git" --work-tree="$projectPath" checkout -b develop
+
 fi
 
 [ $QUIET == false ] && echo "$projectTitle Created in $projectPath"
