@@ -200,7 +200,7 @@ if [ "$projectDesc" != "" ]; then
 fi
 
 # Initialise a Git repo
-if [ $git = true ]; then
+if [ $git == true ]; then
 	# Initialise Git in the project directory
 	git --git-dir="$projectPath/.git" init -q
 
