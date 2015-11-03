@@ -43,6 +43,9 @@ ${bold}OPTIONS${normal}
 	--name "[NAME]"
 		The name of your project
 
+	--desc "[DESCRIPTION]"
+		A one line description of your project, optional
+
 	--licence [LICENCE]
 		Create licence (MIT, Apache2, GPL2, GPL3), default: no licence
 
@@ -82,6 +85,14 @@ if argExists 'no-git'; then
 	git=false
 else
 	git=true
+fi
+
+# Get the projects description
+if argExists 'desc'; then
+	projectDesc="$(argValue "desc")"
+else
+	# Ask the user to supply the projects name
+	[ $QUIET == false ] && read -e -p "Enter One Line Project Description (optional): " projectDesc
 fi
 
 # Check a project name was provided
@@ -183,6 +194,11 @@ fi
 # Add the projects title to the README
 echo "# $projectTitle" > "$projectPath/README.md"
 
+# If defined, add the projects description to the README
+if [ "$projectDesc" != "" ]; then
+	echo -e "\n$projectDesc" >> "$projectPath/README.md"
+fi
+
 # Initialise a Git repo
 if [ $git = true ]; then
 	# Initialise Git in the project directory
@@ -197,6 +213,11 @@ if [ $git = true ]; then
 
 	# Create a develop branch
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" checkout -b develop
+
+	# If defined, add the projects description to the description file
+	if [ "$projectDesc" != "" ]; then
+			echo "$projectDesc" > "$projectPath/.git/description"
+	fi
 
 fi
 
