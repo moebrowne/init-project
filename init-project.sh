@@ -212,7 +212,7 @@ if [ $git == true ]; then
 	git --git-dir="$projectPath/.git" --work-tree="$projectPath" commit -m "Initial Commit" -q
 
 	# Create a develop branch
-	git --git-dir="$projectPath/.git" --work-tree="$projectPath" checkout -b develop
+	git --git-dir="$projectPath/.git" --work-tree="$projectPath" checkout -b develop -q
 
 	# If defined, add the projects description to the description file
 	if [ "$projectDesc" != "" ]; then
