@@ -43,6 +43,9 @@ ${bold}OPTIONS${normal}
 	--name "[NAME]"
 		The name of your project
 
+	--desc "[DESCRIPTION]"
+		A one line description of your project, optional
+
 	--licence [LICENCE]
 		Create licence (MIT, Apache2, GPL2, GPL3), default: no licence
 
