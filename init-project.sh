@@ -191,6 +191,11 @@ fi
 # Add the projects title to the README
 echo "# $projectTitle" > "$projectPath/README.md"
 
+# If defined, add the projects description to the README
+if [ "$projectDesc" != "" ]; then
+	echo -e "\n$projectDesc" >> "$projectPath/README.md"
+fi
+
 # Initialise a Git repo
 if [ $git = true ]; then
 	# Initialise Git in the project directory
