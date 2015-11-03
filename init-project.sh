@@ -84,6 +84,14 @@ else
 	git=true
 fi
 
+# Get the projects description
+if argExists 'desc'; then
+	projectDesc="$(argValue "desc")"
+else
+	# Ask the user to supply the projects name
+	[ $QUIET == false ] && read -e -p "Enter One Line Project Description (optional): " projectDesc
+fi
+
 # Check a project name was provided
 if [ "$projectName" == '' ]; then
 	echo "No project name specified"
