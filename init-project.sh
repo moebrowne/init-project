@@ -2,7 +2,7 @@
 
 # Define all the  arguments
 declare -A argExpected
-argExpected['no-git']="no-git - Do not initialise as git repository"
+argExpected['no-git']="no-git=false - Do not initialise as git repository"
 argExpected['dir']="dir - Where to create your new project"
 argExpected['licence']="licence - Create licence (MIT, Apache2, GPL2, GPL3)"
 argExpected['desc']="desc - A one line description of your project (optional)"
