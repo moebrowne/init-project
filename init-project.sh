@@ -4,7 +4,7 @@
 declare -A argExpected
 argExpected['no-git']="no-git=false - Do not initialise as git repository"
 argExpected['dir']="dir=. - Where to create your new project"
-argExpected['licence']="licence - Create licence (MIT, Apache2, GPL2, GPL3)"
+argExpected['licence']="licence=None - Create licence (MIT, Apache2, GPL2, GPL3)"
 argExpected['desc']="desc - A one line description of your project (optional)"
 argExpected['name']="name - The name of the project"
 argExpected['h|help']="help - This help message"
@@ -90,6 +90,9 @@ elif [ $QUIET == false ]; then
 			break;
 		fi
 	done
+else
+	# Fallback on the default value of the licence argument
+	licence="$(argValue "licence")"
 fi
 
 # Check the licence exists
