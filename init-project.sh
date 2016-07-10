@@ -8,7 +8,7 @@ argExpected['licence']="licence - Create licence (MIT, Apache2, GPL2, GPL3)"
 argExpected['desc']="desc - A one line description of your project (optional)"
 argExpected['name']="name - The name of the project"
 argExpected['h|help']="help - This help message"
-argExpected['q']="quiet - Quiet, no questions asked no output given (optional)"
+argExpected['q']="quiet=false - Quiet, no questions asked no output given (optional)"
 
 # Get the source directory
 SOURCE_ROOT="${BASH_SOURCE%/*}"
@@ -39,10 +39,10 @@ if argPassed 'help'; then
 fi
 
 # Determine if the script should be in 'no questions asked' mode
-if argPassed 'q'; then
+if argPassed 'quiet'; then
 	QUIET=true
 else
-	QUIET=false
+	QUIET="$(argValue 'quiet')"
 fi
 
 # Get the projects name
