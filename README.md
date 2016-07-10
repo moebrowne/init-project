@@ -9,27 +9,27 @@
 ## Arguments
 
 ```bash
--q
-    Quiet, no questions asked no output given, optional
+--name
+	The name of the project
 
---help
-    Help with available commands
+--licence
+	Create licence (MIT, Apache2, GPL2, GPL3)  (default: 'None')
 
---name "[NAME]"
-    The name of your project
-
---desc "[DESCRIPTION]"
-    A one line description of your project, optional
-
---licence [LICENCE]
-    Create licence (MIT, Apache2, GPL2, GPL3), default: no licence
-
---licence-name [NAME]
-    The name you want to appear on the licence, if using Git it will default to your git name
-
---dir [DIRECTORY]
-    Where to create your new project, default: "./"
+--licence-name
+	Name that will appear on the licence, if using one. Will default to your Git user.name (unless --no-git is passed)
 
 --no-git
-    Do not initialise as git repository, default: false
+	Do not initialise as git repository  (default: 'false')
+
+--desc
+	A one line description of your project (optional) 
+
+--dir
+	Where to create your new project  (default: '.')
+
+-q
+	Quiet, no questions asked no output given (optional)  (default: 'false')
+
+-h --help
+	This help message
 ```

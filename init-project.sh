@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Define all the  arguments
+declare -A argExpected
+argExpected['no-git']="no-git=false - Do not initialise as git repository"
+argExpected['dir']="dir=. - Where to create your new project"
+argExpected['licence']="licence=None - Create licence (MIT, Apache2, GPL2, GPL3)"
+argExpected['licence-name']="licence-name - Name that will appear on the licence, if using one. Will default to your Git user.name (unless --no-git is passed)"
+argExpected['desc']="desc - A one line description of your project (optional)"
+argExpected['name']="name - The name of the project"
+argExpected['h|help']="help - This help message"
+argExpected['q']="quiet=false - Quiet, no questions asked no output given (optional)"
+
 # Get the source directory
 SOURCE_ROOT="${BASH_SOURCE%/*}"
 
@@ -22,58 +33,21 @@ LICENCE_ARRAY=("${LICENCE_ARRAY[@]##*/}")
 # Add a no licence option
 LICENCE_ARRAY=(${LICENCE_ARRAY[@]} 'None')
 
-# Text helpers
-bold=$(tput bold)
-normal=$(tput sgr0)
-
-# Help text
-HELP="${bold}NAME${normal}
-	Init Project: A program to initialise a new git project
-
-${bold}USAGE${normal}
-	usage: init-project.sh [OPTIONS]
-
-${bold}OPTIONS${normal}
-	-q
-		Quiet, no questions asked no output given, optional
-
-	--help
-		Help with available commands
-
-	--name "[NAME]"
-		The name of your project
-
-	--desc "[DESCRIPTION]"
-		A one line description of your project, optional
-
-	--licence [LICENCE]
-		Create licence (MIT, Apache2, GPL2, GPL3), default: no licence
-
-	--licence-name [NAME]
-		The name you want to appear on the licence, if using Git it will default to your git name
-
-	--dir [DIRECTORY]
-		Where to create your new project, default: "./"
-
-	--no-git
-		Do not initialise as git repository, default: false
-"
-
 # Show the help text
-if argExists 'help'; then
-	echo "$HELP"
+if argPassed 'help'; then
+	argList
 	exit 0
 fi
 
 # Determine if the script should be in 'no questions asked' mode
-if argExists 'q'; then
+if argPassed 'quiet'; then
 	QUIET=true
 else
-	QUIET=false
+	QUIET="$(argValue 'quiet')"
 fi
 
 # Get the projects name
-if argExists 'name'; then
+if argPassed 'name'; then
 	projectName="$(argValue "name")"
 else
 	# Ask the user to supply the projects name
@@ -81,14 +55,14 @@ else
 fi
 
 # Determine if this is a Git tracked project
-if argExists 'no-git'; then
+if argPassed 'no-git'; then
 	git=false
 else
 	git=true
 fi
 
 # Get the projects description
-if argExists 'desc'; then
+if argPassed 'desc'; then
 	projectDesc="$(argValue "desc")"
 else
 	# Ask the user to supply the projects name
@@ -102,21 +76,24 @@ if [ "$projectName" == '' ]; then
 fi
 
 # Get the projects licence
-if argExists 'licence'; then
+if argPassed 'licence' || [ $QUIET == true ]; then
+	# Use the value passed in (or the default if we're in quiet mode)
 	licence="$(argValue "licence")"
-elif [ $QUIET == false ]; then
+else
 	# Ask the user to enter which licence they want to use
 	echo "Which licence do you want to release your project under?";
 	select licence in ${LICENCE_ARRAY[@]}; do
 		if [[ "$licence" = '' ]]; then
 			echo 'Invalid Option';
 		else
-			if [[ "$licence" = 'None' ]]; then
-				licence=''
-			fi
 			break;
 		fi
 	done
+fi
+
+# If the None licence has been selected blank the licence name
+if [[ "$licence" = 'None' ]]; then
+	licence=''
 fi
 
 # Check the licence exists
@@ -129,7 +106,7 @@ fi
 if [ "$licence" != "" ]; then
 
 	# Check if the name for the licence has been passed as a parameter
-	if argExists 'licence-name'; then
+	if argPassed 'licence-name'; then
 		licenceName="$(argValue "licence-name")"
 	else
 
@@ -151,11 +128,7 @@ if [ "$licence" != "" ]; then
 fi
 
 # Get the directory the project should be created in
-if argExists 'dir'; then
-	projectDir="$(argValue "dir")"
-else
-	projectDir="./"
-fi
+projectDir="$(argValue "dir")"
 
 # Make the projects title
 projectTitle=${projectName//_/ }
