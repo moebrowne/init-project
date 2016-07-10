@@ -1,4 +1,13 @@
-# Initialise New Git Project
+# Initialise A New Project
+
+A little script that sets up a new project with all the essentials.
+
+## What Are The Essentials?
+
+* Basic `README.md`
+* Licence of your choice
+* Git repo. Inc `.gitignore` and initial commit
+
 
 ## Usage
 
