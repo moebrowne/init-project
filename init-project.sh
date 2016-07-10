@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# Define all the  arguments
+declare -A argExpected
+argExpected['no-git']="no-git - Do not initialise as git repository"
+argExpected['dir']="dir - Where to create your new project"
+argExpected['licence']="licence - Create licence (MIT, Apache2, GPL2, GPL3)"
+argExpected['desc']="desc - A one line description of your project (optional)"
+argExpected['name']="name - The name of the project"
+argExpected['h|help']="help - This help message"
+argExpected['q']="quiet - Quiet, no questions asked no output given (optional)"
+
 # Get the source directory
 SOURCE_ROOT="${BASH_SOURCE%/*}"
 
@@ -22,46 +32,9 @@ LICENCE_ARRAY=("${LICENCE_ARRAY[@]##*/}")
 # Add a no licence option
 LICENCE_ARRAY=(${LICENCE_ARRAY[@]} 'None')
 
-# Text helpers
-bold=$(tput bold)
-normal=$(tput sgr0)
-
-# Help text
-HELP="${bold}NAME${normal}
-	Init Project: A program to initialise a new git project
-
-${bold}USAGE${normal}
-	usage: init-project.sh [OPTIONS]
-
-${bold}OPTIONS${normal}
-	-q
-		Quiet, no questions asked no output given, optional
-
-	--help
-		Help with available commands
-
-	--name "[NAME]"
-		The name of your project
-
-	--desc "[DESCRIPTION]"
-		A one line description of your project, optional
-
-	--licence [LICENCE]
-		Create licence (MIT, Apache2, GPL2, GPL3), default: no licence
-
-	--licence-name [NAME]
-		The name you want to appear on the licence, if using Git it will default to your git name
-
-	--dir [DIRECTORY]
-		Where to create your new project, default: "./"
-
-	--no-git
-		Do not initialise as git repository, default: false
-"
-
 # Show the help text
 if argExists 'help'; then
-	echo "$HELP"
+	argList
 	exit 0
 fi
 
