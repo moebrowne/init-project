@@ -33,20 +33,20 @@ LICENCE_ARRAY=("${LICENCE_ARRAY[@]##*/}")
 LICENCE_ARRAY=(${LICENCE_ARRAY[@]} 'None')
 
 # Show the help text
-if argExists 'help'; then
+if argPassed 'help'; then
 	argList
 	exit 0
 fi
 
 # Determine if the script should be in 'no questions asked' mode
-if argExists 'q'; then
+if argPassed 'q'; then
 	QUIET=true
 else
 	QUIET=false
 fi
 
 # Get the projects name
-if argExists 'name'; then
+if argPassed 'name'; then
 	projectName="$(argValue "name")"
 else
 	# Ask the user to supply the projects name
@@ -54,14 +54,14 @@ else
 fi
 
 # Determine if this is a Git tracked project
-if argExists 'no-git'; then
+if argPassed 'no-git'; then
 	git=false
 else
 	git=true
 fi
 
 # Get the projects description
-if argExists 'desc'; then
+if argPassed 'desc'; then
 	projectDesc="$(argValue "desc")"
 else
 	# Ask the user to supply the projects name
@@ -75,7 +75,7 @@ if [ "$projectName" == '' ]; then
 fi
 
 # Get the projects licence
-if argExists 'licence'; then
+if argPassed 'licence'; then
 	licence="$(argValue "licence")"
 elif [ $QUIET == false ]; then
 	# Ask the user to enter which licence they want to use
@@ -102,7 +102,7 @@ fi
 if [ "$licence" != "" ]; then
 
 	# Check if the name for the licence has been passed as a parameter
-	if argExists 'licence-name'; then
+	if argPassed 'licence-name'; then
 		licenceName="$(argValue "licence-name")"
 	else
 
@@ -124,7 +124,7 @@ if [ "$licence" != "" ]; then
 fi
 
 # Get the directory the project should be created in
-if argExists 'dir'; then
+if argPassed 'dir'; then
 	projectDir="$(argValue "dir")"
 else
 	projectDir="./"
