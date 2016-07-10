@@ -5,7 +5,7 @@ declare -A argExpected
 argExpected['no-git']="no-git=false - Do not initialise as git repository"
 argExpected['dir']="dir=. - Where to create your new project"
 argExpected['licence']="licence=None - Create licence (MIT, Apache2, GPL2, GPL3)"
-argExpected['licence-name']="licence-name - Name of the author to appear on the licence. Will default to your Git user.name (unless  --no-git is passed)"
+argExpected['licence-name']="licence-name - Name of the author to appear on the licence. Will default to your Git user.name (unless --no-git is passed)"
 argExpected['desc']="desc - A one line description of your project (optional)"
 argExpected['name']="name - The name of the project"
 argExpected['h|help']="help - This help message"
