@@ -76,9 +76,10 @@ if [ "$projectName" == '' ]; then
 fi
 
 # Get the projects licence
-if argPassed 'licence'; then
+if argPassed 'licence' || [ $QUIET == true ]; then
+	# Use the value passed in (or the default if we're in quiet mode)
 	licence="$(argValue "licence")"
-elif [ $QUIET == false ]; then
+else
 	# Ask the user to enter which licence they want to use
 	echo "Which licence do you want to release your project under?";
 	select licence in ${LICENCE_ARRAY[@]}; do
@@ -88,9 +89,6 @@ elif [ $QUIET == false ]; then
 			break;
 		fi
 	done
-else
-	# Fallback on the default value of the licence argument
-	licence="$(argValue "licence")"
 fi
 
 # If the None licence has been selected blank the licence name
