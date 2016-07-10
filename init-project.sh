@@ -85,15 +85,17 @@ elif [ $QUIET == false ]; then
 		if [[ "$licence" = '' ]]; then
 			echo 'Invalid Option';
 		else
-			if [[ "$licence" = 'None' ]]; then
-				licence=''
-			fi
 			break;
 		fi
 	done
 else
 	# Fallback on the default value of the licence argument
 	licence="$(argValue "licence")"
+fi
+
+# If the None licence has been selected blank the licence name
+if [[ "$licence" = 'None' ]]; then
+	licence=''
 fi
 
 # Check the licence exists
