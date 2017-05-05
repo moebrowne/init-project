@@ -60,6 +60,22 @@ if [ "$projectName" == '' ]; then
 	exit 1
 fi
 
+# Get the directory the project should be created in
+projectDir="$(argValue "dir")"
+
+# Make a directory name out of the project name
+projectDirName=${projectName// /-}
+projectDirName=${projectDirName//\//-}
+
+# Build the projects path
+projectPath="$projectDir/$projectDirName"
+
+# Check if the project already exists
+if [ -d "$projectPath" ]; then
+	echo "The directory $projectPath already exists"
+	exit 1
+fi
+
 # Determine if this is a Git tracked project
 if argPassed 'no-git'; then
 	git=false
@@ -127,26 +143,10 @@ if [ "$licence" != "" ]; then
 
 fi
 
-# Get the directory the project should be created in
-projectDir="$(argValue "dir")"
-
 # Make the projects title
 projectTitle=${projectName//_/ }
 projectTitle=${projectTitle//-/ }
 projectTitle=${projectTitle^}
-
-# Make a directory name out of the project name
-projectDirName=${projectName// /-}
-projectDirName=${projectDirName//\//-}
-
-# Build the projects path
-projectPath="$projectDir/$projectDirName"
-
-# Check if the project already exists
-if [ -d "$projectPath" ]; then
-	echo "The directory $projectPath already exists"
-	exit 1
-fi
 
 # Create the project directory
 mkdir -p "$projectPath"
