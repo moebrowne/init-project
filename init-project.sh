@@ -1,27 +1,7 @@
 #!/bin/bash
 
-# Define all the  arguments
-declare -A argExpected
-argExpected['no-git']="no-git=false - Do not initialise as git repository"
-argExpected['dir']="dir=. - Where to create your new project"
-argExpected['licence']="licence=None - Create licence (MIT, Apache2, GPL2, GPL3)"
-argExpected['licence-name']="licence-name - Name that will appear on the licence, if using one. Will default to your Git user.name (unless --no-git is passed)"
-argExpected['desc']="desc - A one line description of your project (optional)"
-argExpected['name']="name - The name of the project"
-argExpected['h|help']="help - This help message"
-argExpected['q']="quiet=false - Quiet, no questions asked no output given (optional)"
-
 # Get the source directory
 SOURCE_ROOT="${BASH_SOURCE%/*}"
-
-# Set the library root path
-LIBRARY_PATH_ROOT="$SOURCE_ROOT/libs"
-
-# Include all libraries in the libs directory
-for f in "$LIBRARY_PATH_ROOT"/*.sh; do
-	# Include the directory
-	source "$f"
-done
 
 # Set the directory the licences can be found in
 LICENCE_DIR="$SOURCE_ROOT/licences"
@@ -32,6 +12,28 @@ LICENCE_ARRAY=("${LICENCE_ARRAY[@]##*/}")
 
 # Add a no licence option
 LICENCE_ARRAY=(${LICENCE_ARRAY[@]} 'None')
+
+licenceCSV=$(IFS=','; echo "${LICENCE_ARRAY[*]}");
+
+# Define all the  arguments
+declare -A argExpected
+argExpected['no-git']="no-git=false - Do not initialise as git repository"
+argExpected['dir']="dir=. - Where to create your new project"
+argExpected['licence']="licence=None - Create licence. ($licenceCSV)"
+argExpected['licence-name']="licence-name - Name that will appear on the licence, if using one. Will default to your Git user.name (unless --no-git is passed)"
+argExpected['desc']="desc - A one line description of your project (optional)"
+argExpected['name']="name - The name of the project"
+argExpected['h|help']="help - This help message"
+argExpected['q']="quiet=false - Quiet, no questions asked no output given (optional)"
+
+# Set the library root path
+LIBRARY_PATH_ROOT="$SOURCE_ROOT/libs"
+
+# Include all libraries in the libs directory
+for f in "$LIBRARY_PATH_ROOT"/*.sh; do
+	# Include the directory
+	source "$f"
+done
 
 # Show the help text
 if argPassed 'help'; then
