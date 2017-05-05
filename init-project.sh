@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Get the source directory
 SOURCE_ROOT="${BASH_SOURCE%/*}"
