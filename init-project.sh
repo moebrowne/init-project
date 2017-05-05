@@ -172,6 +172,15 @@ if [ "$projectDesc" != "" ]; then
 	echo -e "\n$projectDesc" >> "$projectPath/README.md"
 fi
 
+# Add some boiler plate to the README
+echo -e "\n\n## Installation\n" >> "$projectPath/README.md"
+echo -e "\n\n## Usage example\n" >> "$projectPath/README.md"
+
+if [ "$licence" != "" ]; then
+    echo -e "\n\n## Meta\n" >> "$projectPath/README.md"
+    echo -e "Distributed under the ${licence} license. See \`LICENCE\` for more information." >> "$projectPath/README.md"
+fi
+
 # Initialise a Git repo
 if [ $git == true ]; then
 	# Initialise Git in the project directory
