@@ -54,6 +54,12 @@ else
 	[ $QUIET == false ] && read -e -p "Enter Project Name: " projectName
 fi
 
+# Check a project name was provided
+if [ "$projectName" == '' ]; then
+	echo "No project name specified"
+	exit 1
+fi
+
 # Determine if this is a Git tracked project
 if argPassed 'no-git'; then
 	git=false
@@ -67,12 +73,6 @@ if argPassed 'desc'; then
 else
 	# Ask the user to supply the projects name
 	[ $QUIET == false ] && read -e -p "Enter One Line Project Description (optional): " projectDesc
-fi
-
-# Check a project name was provided
-if [ "$projectName" == '' ]; then
-	echo "No project name specified"
-	exit 1
 fi
 
 # Get the projects licence
